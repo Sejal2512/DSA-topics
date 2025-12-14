@@ -1,0 +1,63 @@
+Problem Statement :
+
+Given a string date representing a Gregorian calendar date formatted as YYYY-MM-DD, return the day number of the year.
+
+
+Examples:
+ 
+
+Example 1:
+
+Input: date = "2019-01-09"
+Output: 9
+Explanation: Given date is the 9th day of the year in 2019.
+ 
+
+Example 2:
+
+Input: date = "2019-02-10"
+Output: 41.
+
+
+Constraints:
+date.length == 10
+date[4] == date[7] == '-', and all other date[i]‘s are digits
+date represents a calendar date between Jan 1, 1900 and Dec 31, 2019.
+
+
+   Pseudocode:
+Define a function dayOfYear that takes a string date as input and returns an integer.
+Create an array arr containing the number of days in each month except February (assuming it's not a leap year).
+Split the input date string by "-" to extract the year, month, and day.
+Convert the extracted year, month, and day strings into integers.
+Initialize a variable totalDays to store the total number of days, initially set to the day of the month.
+Iterate over the months before the current month:
+Add the number of days in each month to the totalDays.
+Check if the month is greater than 2 and if the year is a leap year (divisible by 4) and either divisible by 400 or not divisible by 100:
+If true, increment totalDays by 1 to account for the leap day in February.
+Return the totalDays
+
+
+
+Code for the problem:-
+ 
+
+Java Code
+
+class Solution {
+    public int dayOfYear(String date) {
+    int[] arr = {31,28,31,30,31,30,31,31,30,31,30,31};
+      String[] monthD = date.split("-");
+        int year = Integer.parseInt(monthD[0]);
+        int month = Integer.parseInt(monthD[1]);
+        int days = Integer.parseInt(monthD[2]);
+        int totalDays = days;
+        for(int i=0;i<month-1;i++){
+            totalDays = totalDays+arr[i];
+        }
+        if(month>2 && year%4==0 && (year%400==0 || year%100!=0)){
+            totalDays = totalDays+1;
+        }
+        return totalDays;
+        }
+}
